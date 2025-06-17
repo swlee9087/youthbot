@@ -12,22 +12,22 @@ st.title("🧠 청년정책 정보 RAG 챗봇")
 
 user_query = st.text_input("📌 질문을 입력하세요:")
 
-if user_query:
-    with st.spinner("처리 중입니다..."):
-        parsed = parse_input(user_query)
-        docs = call_api(parsed["target"], parsed["params"])
+# if user_query:
+#     with st.spinner("처리 중입니다..."):
+#         parsed = parse_input(user_query)
+#         docs = call_api(parsed["target"], parsed["params"])
 
-        if not docs:
-            st.error("❌ 관련 정보를 찾을 수 없습니다.")
-        else:
-            chunks, doc_embs = chunk_and_embed(docs)
-            query_emb = embed_query(user_query)
-            top_k_idx = search_top_k(query_emb, doc_embs, k=3)
-            top_docs = [chunks[i] for i in top_k_idx]
-            answer = generate_answer(user_query, top_docs)
+#         if not docs:
+#             st.error("❌ 관련 정보를 찾을 수 없습니다.")
+#         else:
+#             chunks, doc_embs = chunk_and_embed(docs)
+#             query_emb = embed_query(user_query)
+#             top_k_idx = search_top_k(query_emb, doc_embs, k=3)
+#             top_docs = [chunks[i] for i in top_k_idx]
+#             answer = generate_answer(user_query, top_docs)
 
-            st.subheader("✅ 답변")
-            st.markdown(answer)
+#             st.subheader("✅ 답변")
+#             st.markdown(answer)
 
 
 from logger import logger
