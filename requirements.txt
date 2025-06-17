@@ -1,6 +1,7 @@
 # Core
 python-dotenv
 # python-dotenv>=1.0.0
+pdfminer.six
 transformers>=4.40.0
 sentence-transformers>=2.2.2
 scikit-learn>=1.1.3
