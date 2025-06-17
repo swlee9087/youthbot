@@ -17,4 +17,4 @@ logging.basicConfig(
     ]
 )
 
-logger = logging.getLogger("youthbot")Z
+logger = logging.getLogger("youthbot")
