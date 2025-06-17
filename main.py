@@ -1,5 +1,5 @@
 # main.py
-
+from pdf_loader import load_pdfs_from_local_repo
 import time
 import streamlit as st
 from parser import parse_input
@@ -13,6 +13,16 @@ if "history" not in st.session_state:
     
 st.set_page_config(page_title="청년정책 RAG 챗봇", layout="centered")
 st.title("🧠 청년정책 정보 RAG 챗봇")
+
+# setup.py 혹은 main.py 상단
+@st.cache_resource
+def load_pdf_embeddings():
+    docs = load_pdfs_from_local_repo()  # GitHub 클론된 경로 기준
+    chunks, embeddings = chunk_and_embed(docs)
+    return chunks, embeddings
+
+pdf_chunks, pdf_embs = load_pdf_embeddings()
+
 
 # user_query = st.text_input("📌 질문을 입력하세요:", key="user_input")
 user_query = st.text_input(
