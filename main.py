@@ -10,8 +10,8 @@ from llm_generator import generate_answer
 
 if "history" not in st.session_state:
     st.session_state.history = []
-if "rerun_done" not in st.session_state:
-    st.session_state.rerun_done = False
+# if "rerun_done" not in st.session_state:
+#     st.session_state.rerun_done = False
     
 st.set_page_config(page_title="청년정책 RAG 챗봇", layout="centered")
 st.title("🧠 청년정책 정보 RAG 챗봇")
@@ -35,8 +35,8 @@ user_query = st.text_input(
 
 from logger import logger
 
-# if user_query:
-if user_query and not st.session_state.rerun_done:
+if user_query:
+# if user_query and not st.session_state.rerun_done:
     start_time = time.time()
     with st.spinner("처리 중입니다..."):
         try:
@@ -71,8 +71,8 @@ if user_query and not st.session_state.rerun_done:
                 # 💾 히스토리에 저장
             st.session_state.history.append((user_query, answer))
             # st.session_state.user_input = ""  # 입력창 초기화
-            st.session_state.rerun_done = True
-            st.experimental_rerun()
+            # st.session_state.rerun_done = True
+            # st.experimental_rerun()
 
         except Exception as e:
             elapsed = round(time.time() - start_time, 2)
@@ -81,14 +81,14 @@ if user_query and not st.session_state.rerun_done:
             # # st.error("앱 실행 중 오류 발생 ❌")
             # st.session_state.history.append((user_query, "❌ 처리 중 오류 발생"))
             st.session_state.history.append((user_query, answer))
-            st.session_state.rerun_done = True
-            st.experimental_rerun()
+            # st.session_state.rerun_done = True
+            # st.experimental_rerun()
         # st.session_state.user_input = ""
         # st.experimental_rerun() #입력창 초기화, focus 고정 
 # ✅ rerun 후 플래그 리셋
-elif st.session_state.rerun_done:
-    st.session_state.rerun_done = False
-    st.session_state.user_input = ""  # 입력창 초기화
+# elif st.session_state.rerun_done:
+#     st.session_state.rerun_done = False
+#     # st.session_state.user_input = ""  # 입력창 초기화
 
 # 📜 누적된 대화 출력
 for q, a in st.session_state.history:
