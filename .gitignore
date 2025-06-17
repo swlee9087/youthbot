@@ -1,0 +1,33 @@
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# Editor settings
+.vscode/
+.idea/
+
+# Environment
+.env
+venv/
+.venv/
+
+# Artifacts & logs
+*.log
+*.db
+*.sqlite
+*.pt
+*.bin
+*.ckpt
+*.safetensors
+
+# Huggingface cache
+~/.cache/huggingface/
+*.hf.*
+
+# Streamlit
+.streamlit/
+
+# Generated
+chroma_db/
+final.py
+ui_utils.py
