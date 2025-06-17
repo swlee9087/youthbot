@@ -28,3 +28,28 @@ if user_query:
 
             st.subheader("✅ 답변")
             st.markdown(answer)
+
+
+from logger import logger
+
+if user_query:
+    with st.spinner("처리 중입니다..."):
+        try:
+            parsed = parse_input(user_query)
+            docs = call_api(parsed["target"], parsed["params"])
+
+            if not docs:
+                st.error("❌ 관련 정보를 찾을 수 없습니다.")
+                logger.warning("API 응답 문서 없음.")
+            else:
+                chunks, doc_embs = chunk_and_embed(docs)
+                query_emb = embed_query(user_query)
+                top_k_idx = search_top_k(query_emb, doc_embs, k=3)
+                top_docs = [chunks[i] for i in top_k_idx]
+                answer = generate_answer(user_query, top_docs)
+                st.subheader("✅ 답변")
+                st.markdown(answer)
+
+        except Exception as e:
+            st.error("앱 실행 중 오류 발생 ❌")
+            logger.exception(f"Streamlit 처리 중 예외 발생: {e}")

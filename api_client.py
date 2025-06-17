@@ -45,3 +45,22 @@ def extract_text_list(json_data: dict, target: str) -> list[str]:
         results.append(text)
 
     return results
+
+
+from logger import logger
+
+def call_api(target: str, params: dict) -> list[str]:
+    api_url = API_ENDPOINTS[target]
+    api_key = API_KEYS[target]
+    params["apiKeyNm"] = api_key
+
+    try:
+        logger.info(f"Calling API: {target} with params: {params}")
+        response = requests.get(api_url, params=params)
+        response.raise_for_status()
+        json_data = response.json()
+        return extract_text_list(json_data, target)
+
+    except Exception as e:
+        logger.error(f"API 호출 실패: {e}")
+        return []
